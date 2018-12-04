@@ -1,10 +1,11 @@
 'use strict';
 
-function FunctionTiming() {
+function FunctionTiming(chosenMethod) {
   this.time
   this.start
   this.stop
   this.numArray = []
+  this.chosenMethod = chosenMethod
 };
 
 FunctionTiming.prototype.arrayGenerator = function(i) {
@@ -42,11 +43,24 @@ FunctionTiming.prototype.operation = function(size) {
   console.log(size);
   this.arrayGenerator(size);
 
-  this.start = performance.now();
+  if (this.chosenMethod == "last") {
+    this.start = performance.now();
+    var z = this.last(this.numArray);
+  };
+  if (this.chosenMethod == "reverse") {
+    this.start = performance.now();
+    var z = this.numArray.reverse();
+  };
+  if (this.chosenMethod == "shuffle") {
+    this.start = performance.now();
+    var z = this.shuffle(this.numArray);
+  };
+  if (this.chosenMethod == "sort") {
+    this.start = performance.now();
+    var z = this.numArray.sort();
+  };
 
   var z = this.numArray.sort();
-  console.log(z);
-
   this.stop = performance.now();
 };
 
@@ -55,11 +69,14 @@ this.operation(size);
 this.timer();
 };
 
-var f = new FunctionTiming();
+FunctionTiming.prototype.runExec = function() {
+this.exec(0);
+this.exec(1000000);
+this.exec(2000000);
+this.exec(3000000);
+this.exec(4000000);
+this.exec(5000000);
+};
 
-f.exec(0);
-f.exec(1000000);
-f.exec(2000000);
-f.exec(3000000);
-f.exec(4000000);
-f.exec(5000000);
+var f = new FunctionTiming("sort");
+f.runExec();
