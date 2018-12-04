@@ -29,17 +29,32 @@ FunctionTiming.prototype.arrayGenerator = function(size) {
   };
 };
 
+// FunctionTiming.prototype.checkDuplicates = function() {
+//   var i
+//   var j
+//   for (i = 0; i < this.list.length; i++) {
+//     for (j = i + 1; j < this.list.length; j++) {
+//       if (this.list[i] == this.list[j]) {
+//         console.log("Your list has duplicates");
+//         return true;
+//       };
+//     };
+//   };
+//   console.log("Your list does not have any duplicates.");
+// };
+
+// method above replaced by method below to increase efficiency.
+
 FunctionTiming.prototype.checkDuplicates = function() {
-  var i
-  var j
-  for (i = 0; i < this.list.length; i++) {
-    for (j = i + 1; j < this.list.length; j++) {
-      if (this.list[i] == this.list[j]) {
-        console.log("Your list has duplicates");
-        return true;
-      };
-    };
-  };
+  var counts = [];
+  for(var i = 0; i <= this.list.length; i++) {
+      if(counts[this.list[i]] === undefined) {
+          counts[this.list[i]] = 1;
+      } else {
+        console.log("Your list has duplicates.");
+        return;
+      }
+    }
   console.log("Your list does not have any duplicates.");
 };
 
@@ -117,11 +132,11 @@ this.output();
 
 FunctionTiming.prototype.runExec = function() {
 this.exec(0);
-this.exec(1000000);
-this.exec(2000000);
-this.exec(3000000);
-this.exec(4000000);
-this.exec(5000000);
+this.exec(10000);
+this.exec(20000);
+this.exec(30000);
+this.exec(40000);
+this.exec(50000);
 };
 
 var f = new FunctionTiming("checkDuplicates");
