@@ -1,17 +1,18 @@
 'use strict';
 
 function FunctionTiming(chosenMethod) {
-  this.z
-  this.time
-  this.start
-  this.stop
-  this.numArray = []
-  this.chosenMethod = chosenMethod
+  this.z;
+  this.time;
+  this.start;
+  this.stop;
+  this.numArray = [];
+  this.chosenMethod = chosenMethod;
 };
 
-FunctionTiming.prototype.arrayGenerator = function(i) {
-  var x = 0;
-  for (x = 0; x < i; x++) {
+FunctionTiming.prototype.arrayGenerator = function(size) {
+  var x
+  this.numArray = [];
+  for (x = 0; x < size; x++) {
     var y = Math.floor((Math.random() * 100) + 1);
     this.numArray.push(y);
   };
@@ -34,11 +35,6 @@ FunctionTiming.prototype.shuffle = function(array) {
   }
   return input;
 }
-
-FunctionTiming.prototype.timer = function() {
-  this.time = this.stop - this.start;
-  console.log(this.time);
-};
 
 FunctionTiming.prototype.chooseMethod = function() {
   if (this.chosenMethod == "last") {
@@ -64,25 +60,33 @@ FunctionTiming.prototype.chooseMethod = function() {
 };
 
 FunctionTiming.prototype.operation = function(size) {
-  console.log(size);
   this.arrayGenerator(size);
   this.chooseMethod();
-  console.log(this.z);
+};
+
+FunctionTiming.prototype.timer = function() {
+  this.time = (this.stop - this.start) * 1000;
+};
+
+FunctionTiming.prototype.output = function() {
+  console.log("Array size: " + this.numArray.length)
+  console.log("Function Time: " + this.time)
 };
 
 FunctionTiming.prototype.exec = function(size) {
 this.operation(size);
 this.timer();
+this.output();
 };
 
 FunctionTiming.prototype.runExec = function() {
 this.exec(0);
-this.exec(10000);
-this.exec(20000);
-this.exec(30000);
-this.exec(40000);
-this.exec(50000);
+this.exec(1000000);
+this.exec(2000000);
+this.exec(3000000);
+this.exec(4000000);
+this.exec(5000000);
 };
 
-var f = new FunctionTiming("shuffle");
+var f = new FunctionTiming("sort");
 f.runExec();
