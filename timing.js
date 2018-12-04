@@ -7,6 +7,17 @@ function FunctionTiming(chosenMethod) {
   this.stop;
   this.numArray = [];
   this.chosenMethod = chosenMethod;
+  this.list = []
+};
+
+FunctionTiming.prototype.listGenerator = function(size) {
+  var x
+  this.list = [];
+  for (x = 0; x < size; x++) {
+    var y = x + 1;
+    this.list.push(y);
+  };
+  // this.list.push(size)
 };
 
 FunctionTiming.prototype.arrayGenerator = function(size) {
@@ -16,6 +27,20 @@ FunctionTiming.prototype.arrayGenerator = function(size) {
     var y = Math.floor((Math.random() * 100) + 1);
     this.numArray.push(y);
   };
+};
+
+FunctionTiming.prototype.checkDuplicates = function() {
+  var i
+  var j
+  for (i = 0; i < this.list.length; i++) {
+    for (j = i + 1; j < this.list.length; j++) {
+      if (this.list[i] == this.list[j]) {
+        console.log("Your list has duplicates");
+        return true;
+      };
+    };
+  };
+  console.log("Your list does not have any duplicates.");
 };
 
 FunctionTiming.prototype.last = function() {
@@ -57,11 +82,17 @@ FunctionTiming.prototype.chooseMethod = function() {
     this.z = this.numArray.sort();
     this.stop = performance.now();
   };
+  if (this.chosenMethod == "checkDuplicates") {
+    this.start = performance.now();
+    this.z = this.checkDuplicates(this.list);
+    this.stop = performance.now();
+  }
 };
 
 FunctionTiming.prototype.operation = function(size) {
   this.arrayGenerator(size);
-  this.chooseMethod();
+  this.listGenerator(size);
+  this.chooseMethod(size);
 };
 
 FunctionTiming.prototype.timer = function() {
@@ -69,8 +100,13 @@ FunctionTiming.prototype.timer = function() {
 };
 
 FunctionTiming.prototype.output = function() {
-  console.log("Array size: " + this.numArray.length)
-  console.log("Function Time: " + this.time)
+  if (this.chosenMethod == "checkDuplicates") {
+    console.log("List size: " + this.list.length);
+  } else {
+    console.log("Array size: " + this.numArray.length);
+  }
+
+  console.log("Function Time: " + this.time);
 };
 
 FunctionTiming.prototype.exec = function(size) {
@@ -88,5 +124,5 @@ this.exec(4000000);
 this.exec(5000000);
 };
 
-var f = new FunctionTiming("sort");
+var f = new FunctionTiming("checkDuplicates");
 f.runExec();
