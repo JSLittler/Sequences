@@ -47,10 +47,8 @@ FunctionTiming.prototype.shuffle = function(array) {
   var input = array;
    
   for (var i = input.length-1; i >=0; i--) {
-   
       var randomIndex = Math.floor(Math.random()*(i+1)); 
-      var itemAtIndex = input[randomIndex]; 
-       
+      var itemAtIndex = input[randomIndex];
       input[randomIndex] = input[i]; 
       input[i] = itemAtIndex;
   }
@@ -77,10 +75,10 @@ FunctionTiming.prototype.runMethod = function(data, callback) {
 };
 
 FunctionTiming.prototype.chooseMethod = function() {
-  if (this.chosenMethod == "last") { this.runMethod(this.numArray, this.last) };
-  if (this.chosenMethod == "myLast") { this.runMethod(this.numArray, this.myLast) };
-  if (this.chosenMethod == "myReverse") { this.runMethod(this.numArray, this.myReverse) };
-  if (this.chosenMethod == "shuffle") { this.runMethod(this.numArray, this.shuffle) };
+  if (this.chosenMethod == "last")            { this.runMethod(this.numArray, this.last) };
+  if (this.chosenMethod == "myLast")          { this.runMethod(this.numArray, this.myLast) };
+  if (this.chosenMethod == "myReverse")       { this.runMethod(this.numArray, this.myReverse) };
+  if (this.chosenMethod == "shuffle")         { this.runMethod(this.numArray, this.shuffle) };
   if (this.chosenMethod == "checkDuplicates") { this.runMethod(this.list, this.checkDuplicates) };
 };
 
@@ -95,11 +93,7 @@ FunctionTiming.prototype.timer = function() {
 };
 
 FunctionTiming.prototype.output = function() {
-  if (this.chosenMethod == "checkDuplicates") {
-    console.log("List size: " + this.list.length);
-  } else {
-    console.log("Array size: " + this.numArray.length);
-  };
+  (this.chosenMethod == "checkDuplicates") ? console.log("List size: " + this.list.length) : console.log("Array size: " + this.numArray.length);
 
   console.log("Function Time: " + this.time);
 };
