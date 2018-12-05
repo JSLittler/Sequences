@@ -62,6 +62,18 @@ FunctionTiming.prototype.last = function() {
   return this.numArray[length - 1];
 };
 
+FunctionTiming.prototype.myLast = function() {
+  var x = this.numArray.length;
+  return this.numArray[x - 1];
+};
+
+FunctionTiming.prototype.myReverse = function() {
+  for (var i = this.numArray.length-2; i >=0; i--) {
+    this.numArray.push(this.numArray.splice(i, 1)[0]);
+  }
+  return this.numArray;
+};
+
 FunctionTiming.prototype.shuffle = function(array) {
   var input = array;
    
@@ -82,9 +94,19 @@ FunctionTiming.prototype.chooseMethod = function() {
     this.z = this.last(this.numArray);
     this.stop = performance.now();
   };
+  if (this.chosenMethod == "myLast") {
+    this.start = performance.now();
+    this.z = this.myLast(this.numArray);
+    this.stop = performance.now();
+  };
   if (this.chosenMethod == "reverse") {
     this.start = performance.now();
     this.z = this.numArray.reverse();
+    this.stop = performance.now();
+  };
+  if (this.chosenMethod == "myReverse") {
+    this.start = performance.now();
+    this.z = this.myReverse(this.numArray);
     this.stop = performance.now();
   };
   if (this.chosenMethod == "shuffle") {
@@ -132,12 +154,12 @@ this.output();
 
 FunctionTiming.prototype.runExec = function() {
 this.exec(0);
-this.exec(10000);
-this.exec(20000);
-this.exec(30000);
-this.exec(40000);
-this.exec(50000);
+this.exec(1000000);
+this.exec(2000000);
+this.exec(3000000);
+this.exec(4000000);
+this.exec(5000000);
 };
 
-var f = new FunctionTiming("checkDuplicates");
+var f = new FunctionTiming("myReverse");
 f.runExec();
