@@ -1,19 +1,17 @@
 'use strict';
 
 function FunctionTiming(chosenMethod) {
-  this.z;
   this.time;
   this.start;
   this.stop;
+  this.list = [];
   this.numArray = [];
   this.chosenMethod = chosenMethod;
-  this.list = []
 };
 
 FunctionTiming.prototype.listGenerator = function(size) {
-  var x
   this.list = [];
-  for (x = 0; x < size; x++) {
+  for (var x = 0; x < size; x++) {
     var y = x + 1;
     this.list.push(y);
   };
@@ -29,49 +27,20 @@ FunctionTiming.prototype.arrayGenerator = function(size) {
   };
 };
 
-// FunctionTiming.prototype.checkDuplicates = function() {
-//   var i
-//   var j
-//   for (i = 0; i < this.list.length; i++) {
-//     for (j = i + 1; j < this.list.length; j++) {
-//       if (this.list[i] == this.list[j]) {
-//         console.log("Your list has duplicates");
-//         return true;
-//       };
-//     };
-//   };
-//   console.log("Your list does not have any duplicates.");
-// };
-
-// method above replaced by method below to increase efficiency.
-
-FunctionTiming.prototype.checkDuplicates = function() {
-  var counts = [];
-  for(var i = 0; i <= this.list.length; i++) {
-      if(counts[this.list[i]] === undefined) {
-          counts[this.list[i]] = 1;
-      } else {
-        console.log("Your list has duplicates.");
-        return;
-      }
-    }
-  console.log("Your list does not have any duplicates.");
+FunctionTiming.prototype.last = function(array) {
+  return array[length - 1];
 };
 
-FunctionTiming.prototype.last = function() {
-  return this.numArray[length - 1];
+FunctionTiming.prototype.myLast = function(array) {
+  var x = array.length;
+  return array[x - 1];
 };
 
-FunctionTiming.prototype.myLast = function() {
-  var x = this.numArray.length;
-  return this.numArray[x - 1];
-};
-
-FunctionTiming.prototype.myReverse = function() {
-  for (var i = this.numArray.length-2; i >=0; i--) {
-    this.numArray.push(this.numArray.splice(i, 1)[0]);
+FunctionTiming.prototype.myReverse = function(array) {
+  for (var i = array.length-2; i >=0; i--) {
+    array.push(array.splice(i, 1)[0]);
   }
-  return this.numArray;
+  return array;
 };
 
 FunctionTiming.prototype.shuffle = function(array) {
@@ -86,44 +55,33 @@ FunctionTiming.prototype.shuffle = function(array) {
       input[i] = itemAtIndex;
   }
   return input;
-}
+};
+
+FunctionTiming.prototype.checkDuplicates = function(list) {
+  var counts = [];
+  for(var i = 0; i <= list.length; i++) {
+      if(counts[list[i]] === undefined) {
+          counts[list[i]] = 1;
+      } else {
+        console.log("Your list has duplicates.");
+        return;
+      }
+    }
+  console.log("Your list does not have any duplicates.");
+};
+
+FunctionTiming.prototype.runMethod = function(data, callback) {
+  this.start = performance.now();
+  callback(data);
+  this.stop = performance.now();
+};
 
 FunctionTiming.prototype.chooseMethod = function() {
-  if (this.chosenMethod == "last") {
-    this.start = performance.now();
-    this.z = this.last(this.numArray);
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "myLast") {
-    this.start = performance.now();
-    this.z = this.myLast(this.numArray);
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "reverse") {
-    this.start = performance.now();
-    this.z = this.numArray.reverse();
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "myReverse") {
-    this.start = performance.now();
-    this.z = this.myReverse();
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "shuffle") {
-    this.start = performance.now();
-    this.z = this.shuffle(this.numArray);
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "sort") {
-    this.start = performance.now();
-    this.z = this.numArray.sort();
-    this.stop = performance.now();
-  };
-  if (this.chosenMethod == "checkDuplicates") {
-    this.start = performance.now();
-    this.z = this.checkDuplicates(this.list);
-    this.stop = performance.now();
-  }
+  if (this.chosenMethod == "last") { this.runMethod(this.numArray, this.last) };
+  if (this.chosenMethod == "myLast") { this.runMethod(this.numArray, this.myLast) };
+  if (this.chosenMethod == "myReverse") { this.runMethod(this.numArray, this.myReverse) };
+  if (this.chosenMethod == "shuffle") { this.runMethod(this.numArray, this.shuffle) };
+  if (this.chosenMethod == "checkDuplicates") { this.runMethod(this.list, this.checkDuplicates) };
 };
 
 FunctionTiming.prototype.operation = function(size) {
@@ -141,7 +99,7 @@ FunctionTiming.prototype.output = function() {
     console.log("List size: " + this.list.length);
   } else {
     console.log("Array size: " + this.numArray.length);
-  }
+  };
 
   console.log("Function Time: " + this.time);
 };
@@ -161,5 +119,5 @@ this.exec(40000);
 this.exec(50000);
 };
 
-var f = new FunctionTiming("myReverse");
+var f = new FunctionTiming("checkDuplicates");
 f.runExec();
