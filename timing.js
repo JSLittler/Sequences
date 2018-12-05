@@ -106,7 +106,7 @@ FunctionTiming.prototype.chooseMethod = function() {
   };
   if (this.chosenMethod == "myReverse") {
     this.start = performance.now();
-    this.z = this.myReverse(this.numArray);
+    this.z = this.myReverse();
     this.stop = performance.now();
   };
   if (this.chosenMethod == "shuffle") {
@@ -154,11 +154,11 @@ this.output();
 
 FunctionTiming.prototype.runExec = function() {
 this.exec(0);
-this.exec(1000000);
-this.exec(2000000);
-this.exec(3000000);
-this.exec(4000000);
-this.exec(5000000);
+this.exec(10000);
+this.exec(20000);
+this.exec(30000);
+this.exec(40000);
+this.exec(50000);
 };
 
 var f = new FunctionTiming("myReverse");
