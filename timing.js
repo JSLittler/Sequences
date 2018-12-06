@@ -44,21 +44,22 @@ FunctionTiming.prototype.arrayGenerator = function(size) {
 };
 
 FunctionTiming.prototype.last = function(array) {
-  console.log(array[length - 1])
   return array[length - 1];
 };
 
 FunctionTiming.prototype.myLast = function(array) {
   var x = array.length;
-  console.log(array[x - 1]);
   return array[x - 1];
+};
+
+FunctionTiming.prototype.systemReverse = function(array) {
+  return array.reverse();
 };
 
 FunctionTiming.prototype.myReverse = function(array) {
   for (var i = array.length-2; i >=0; i--) {
     array.push(array.splice(i, 1)[0]);
   }
-  console.log(array);
   return array;
 };
 
@@ -71,9 +72,37 @@ FunctionTiming.prototype.shuffle = function(array) {
       input[randomIndex] = input[i]; 
       input[i] = itemAtIndex;
   }
-  console.log(input);
   return input;
 };
+
+FunctionTiming.prototype.systemSort = function(array) {
+  return array.sort();
+};
+
+FunctionTiming.prototype.mySort = function(array) {
+  var a1 = [];
+  var a2 = [];
+  if (array.length <= 1) { return array };
+
+  var pivot = array[0];
+  a1, a2 = this.mySortPartition(array, pivot);
+  sortedA1 = mySort(a1);
+  sortedA2 = mySort(a2);
+  return sortedA1 + [pivot] + sortedA2;
+};
+
+FunctionTiming.prototype.mySortPartition = function(array, pivot) {
+  array.shift();
+  a1 = [];
+  a2 = [];
+  array.forEach(function(element) {
+    (element < pivot) ? a1.push(element) : a2.push(element);
+  });
+  return a1, a2 
+  };
+
+  // problems:
+  // returning multiple things - is this possible in JS?
 
 FunctionTiming.prototype.checkDuplicates = function(list) {
   var counts = [];
@@ -97,8 +126,11 @@ FunctionTiming.prototype.runMethod = function(data, callback) {
 FunctionTiming.prototype.chooseMethod = function() {
   if (this.chosenMethod == "last")            { this.runMethod(this.numArray, this.last) };
   if (this.chosenMethod == "myLast")          { this.runMethod(this.numArray, this.myLast) };
+  if (this.chosenMethod == "systemReverse")       { this.runMethod(this.numArray, this.systemReverse) };
   if (this.chosenMethod == "myReverse")       { this.runMethod(this.numArray, this.myReverse) };
   if (this.chosenMethod == "shuffle")         { this.runMethod(this.numArray, this.shuffle) };
+  if (this.chosenMethod == "systemSort")       { this.runMethod(this.numArray, this.systemSort) };
+  if (this.chosenMethod == "mySort")       { this.runMethod(this.numArray, this.mySort) };
   if (this.chosenMethod == "checkDuplicates") { this.runMethod(this.list, this.checkDuplicates) };
 };
 

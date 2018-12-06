@@ -11,6 +11,11 @@ $(document).ready(function() {
     $('#function').text(f.getFunction());
   });
 
+  $('#System-Reverse').click(function() {
+    f = new FunctionTiming("systemReverse");
+    $('#function').text(f.getFunction());
+  });
+
   $('#My-Reverse').click(function() {
     f = new FunctionTiming("myReverse");
     $('#function').text(f.getFunction());
@@ -18,6 +23,16 @@ $(document).ready(function() {
 
   $('#Shuffle').click(function() {
     f = new FunctionTiming("shuffle");
+    $('#function').text(f.getFunction());
+  });
+
+  $('#System-Sort').click(function() {
+    f = new FunctionTiming("systemSort");
+    $('#function').text(f.getFunction());
+  });
+
+  $('#My-Sort').click(function() {
+    f = new FunctionTiming("mySort");
     $('#function').text(f.getFunction());
   });
 
