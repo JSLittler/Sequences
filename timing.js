@@ -7,6 +7,22 @@ function FunctionTiming(chosenMethod) {
   this.list = [];
   this.numArray = [];
   this.chosenMethod = chosenMethod;
+  this.size;
+  this.result;
+  this.output0;
+  this.output1;
+  this.output2;
+  this.output3;
+  this.output4;
+  this.output5;
+};
+
+FunctionTiming.prototype.getFunction = function() {
+  return this.chosenMethod;
+};
+
+FunctionTiming.prototype.getSize = function() {
+  return this.size;
 };
 
 FunctionTiming.prototype.listGenerator = function(size) {
@@ -28,11 +44,13 @@ FunctionTiming.prototype.arrayGenerator = function(size) {
 };
 
 FunctionTiming.prototype.last = function(array) {
+  console.log(array[length - 1])
   return array[length - 1];
 };
 
 FunctionTiming.prototype.myLast = function(array) {
   var x = array.length;
+  console.log(array[x - 1]);
   return array[x - 1];
 };
 
@@ -40,6 +58,7 @@ FunctionTiming.prototype.myReverse = function(array) {
   for (var i = array.length-2; i >=0; i--) {
     array.push(array.splice(i, 1)[0]);
   }
+  console.log(array);
   return array;
 };
 
@@ -52,6 +71,7 @@ FunctionTiming.prototype.shuffle = function(array) {
       input[randomIndex] = input[i]; 
       input[i] = itemAtIndex;
   }
+  console.log(input);
   return input;
 };
 
@@ -93,25 +113,70 @@ FunctionTiming.prototype.timer = function() {
 };
 
 FunctionTiming.prototype.output = function() {
-  (this.chosenMethod == "checkDuplicates") ? console.log("List size: " + this.list.length) : console.log("Array size: " + this.numArray.length);
+  (this.chosenMethod == "checkDuplicates") ? this.result = "List size: " + this.list.length + ", Function Time: " + this.time : this.result = "Array size: " + this.numArray.length + ", Function Time: " + this.time;
 
   console.log("Function Time: " + this.time);
 };
 
 FunctionTiming.prototype.exec = function(size) {
-this.operation(size);
-this.timer();
-this.output();
+  this.operation(size);
+  this.timer();
+  this.output();
 };
 
-FunctionTiming.prototype.runExec = function() {
-this.exec(0);
-this.exec(10000);
-this.exec(20000);
-this.exec(30000);
-this.exec(40000);
-this.exec(50000);
+FunctionTiming.prototype.runExecTest= function() {
+  this.size = "Test array, length 10."
+  this.exec(10);
+  this.output0 = this.result;
 };
 
-var f = new FunctionTiming("checkDuplicates");
-f.runExec();
+FunctionTiming.prototype.runExec10000 = function() {
+  this.size = "Array length increments by 10,000"
+  this.exec(0);
+  this.output0 = this.result;
+  this.exec(10000);
+  this.output1 = this.result;
+  this.exec(20000);
+  this.output2 = this.result;
+  this.exec(30000);
+  this.output3 = this.result;
+  this.exec(40000);
+  this.output4 = this.result;
+  this.exec(50000);
+  this.output5 = this.result;
+};
+
+FunctionTiming.prototype.runExec100000 = function() {
+  this.size = "Array length increments by 100,000"
+  this.exec(0);
+  this.output0 = this.result;
+  this.exec(100000);
+  this.output1 = this.result;
+  this.exec(200000);
+  this.output2 = this.result;
+  this.exec(300000);
+  this.output3 = this.result;
+  this.exec(400000);
+  this.output4 = this.result;
+  this.exec(500000);
+  this.output5 = this.result;
+};
+
+FunctionTiming.prototype.runExec1000000 = function() {
+  this.size = "Array length increments by 1,000,000"
+  this.exec(0);
+  this.output0 = this.result;
+  this.exec(1000000);
+  this.output1 = this.result;
+  this.exec(2000000);
+  this.output2 = this.result;
+  this.exec(3000000);
+  this.output3 = this.result;
+  this.exec(4000000);
+  this.output4 = this.result;
+  this.exec(5000000);
+  this.output5 = this.result;
+};
+
+// var f = new FunctionTiming("last");
+// f.runExec10000();
